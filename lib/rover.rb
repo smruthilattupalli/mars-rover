@@ -13,7 +13,7 @@ class Rover
     @plateau = plateau
   end
 
-  # Rover executes series of instructions 'LLMRRMMM' sequenctially
+  # Rover executes series of instructions like 'LLMRRMMM' sequentially
   def execute_instructions(instructions)
     instructions.each_char do |instruction|
       case instruction
