@@ -1,7 +1,7 @@
 ## INSTRUCTIONS TO RUN THE PROGRAM ::
 
 1. Unzip the file.
-2. Open a new terminal and go to the folder where you unzipped the file.
+2. Open a new terminal and cd to the folder where you unzipped the file.
 3. $ cd mars-rover
 4. Provide the test input in the lib/input.txt file.
 5. $ ruby mars_rover_program.rb
@@ -13,6 +13,7 @@
 2. $ rake (To run all the tests)
 3. $ rspec spec/rover_spec.rb (To run tests specific to Rover object)
 4. $ rspec spec/plateau_spec.rb (To run tests specific to Plateau object)
+5. $ rspec spec/direction_spec.rb (To run tests specific to Direction object)
 
 ## MARS ROVER PROGRAM (SUMMARY)
 
@@ -42,6 +43,10 @@ MMRMMRMRRM
 3. Groups input into groups of 2 containing position and instructions respectively. Each group is associated to a rover.
 4. Initializes rovers and executes instructions sequentially (Rover Object).
 
+## Direction Object (direction.rb)::
+
+1. Initialized to the heading of the rover.
+2. Manages the rotate instructions of the rover.
 
 ## Plateau Object (plateau.rb)::
 

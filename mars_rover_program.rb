@@ -2,10 +2,12 @@
 
 require_relative 'lib/plateau'
 require_relative 'lib/rover'
+require_relative 'lib/direction'
 
 input = File.open('lib/input.txt')
 output = File.open('lib/output.txt', 'w')
 
+# returns an array of input lines from the text file
 input_lines = File.readlines(input)
 
 # first line of the input file are plateau coordinates
@@ -25,7 +27,7 @@ rovers.each_with_index do |rover_info, index|
   rover.execute_instructions(rover_info[1]) # rover instructions
 
   # write the final position of the rover to the output file
-  output.write "#{rover.x_position} #{rover.y_position} #{rover.direction}\n"
-  puts "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+  output.write "#{rover.x_position} #{rover.y_position} #{rover.direction.heading}\n"
+  puts "#{rover.x_position} #{rover.y_position} #{rover.direction.heading}"
   puts '-------------------------------------------'
 end
