@@ -84,3 +84,31 @@ describe 'Rover :: Can Move', :rover do
     expect(actual).to eq(expected)
   end
 end
+
+describe "Rover :: Cannot move outside the plateau with dimensions '6 6'" do
+  plateau = Plateau.new(%w[6 6])
+
+  it "Rover at '6 3 E' cannot cross east limit" do
+    rover = Rover.new(%w[6 3 E], plateau)
+    rover.move
+    expect(rover.east_move_allowed?).to be(false)
+  end
+
+  it "Rover at '0 3 W' cannot cross west limit" do
+    rover = Rover.new(%w[0 3 W], plateau)
+    rover.move
+    expect(rover.west_move_allowed?).to be(false)
+  end
+
+  it "Rover at '5 6 N' cannot cross north limit" do
+    rover = Rover.new(%w[5 6 N], plateau)
+    rover.move
+    expect(rover.north_move_allowed?).to be(false)
+  end
+
+  it "Rover at '6 0 S' cannot cross south limit" do
+    rover = Rover.new(%w[6 0 S], plateau)
+    rover.move
+    expect(rover.south_move_allowed?).to be(false)
+  end
+end
