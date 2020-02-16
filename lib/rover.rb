@@ -11,6 +11,22 @@ class Rover
     @plateau = plateau
   end
 
+  def east_move_allowed?
+    @direction == 'E' && @x_position < @plateau.east_limit
+  end
+
+  def west_move_allowed?
+    @direction == 'W' && @x_position > @plateau.west_limit
+  end
+
+  def north_move_allowed?
+    @direction == 'N' && @y_position < @plateau.north_limit
+  end
+
+  def south_move_allowed?
+    @direction == 'S' && @y_position > @plateau.south_limit
+  end
+
   def turn_left
     case @direction
     when 'W' then @direction = 'S'
@@ -27,5 +43,12 @@ class Rover
     when 'N' then @direction = 'E'
     when 'E' then @direction = 'S'
     end
+  end
+
+  def move
+    @x_position += 1 if east_move_allowed?
+    @x_position -= 1 if west_move_allowed?
+    @y_position += 1 if north_move_allowed?
+    @y_position -= 1 if south_move_allowed?
   end
 end
