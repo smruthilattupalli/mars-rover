@@ -96,7 +96,7 @@ describe 'Rover :: Can follow a series of instructions' do
     expect(actual).to eq(expected)
   end
 
-  it "Rover at '6 6 E' doesnt cross plateau but changes heading" do
+  it "Rover at '6 6 E' doesnt cross plateau limits but changes heading" do
     rover = Rover.new(%w[6 6 E], plateau)
     rover.execute_instructions('MMLMM')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction.heading}"
