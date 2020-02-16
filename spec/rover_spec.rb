@@ -19,3 +19,32 @@ describe 'Rover :: Initial Position', :rover do
     expect(actual).to eq(expected)
   end
 end
+
+describe 'Rover :: Can change direction', :rover do
+  plateau = Plateau.new(%w[7 7])
+
+  it 'Can turn left' do
+    rover = Rover.new(%w[3 4 N], plateau)
+    rover.turn_left
+    actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+    expected = '3 4 W'
+    expect(actual).to eq(expected)
+  end
+
+  it 'Can turn right' do
+    rover = Rover.new(%w[4 3 E], plateau)
+    rover.turn_right
+    actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+    expected = '4 3 S'
+    expect(actual).to eq(expected)
+  end
+
+  it 'Can turn opposite direction' do
+    rover = Rover.new(%w[4 3 E], plateau)
+    rover.turn_right
+    rover.turn_right
+    actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+    expected = '4 3 W'
+    expect(actual).to eq(expected)
+  end
+end
