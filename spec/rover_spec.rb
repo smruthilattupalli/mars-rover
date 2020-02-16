@@ -25,7 +25,7 @@ describe 'Rover :: Can change direction', :rover do
 
   it "Can turn left from 'N' to 'W'" do
     rover = Rover.new(%w[3 4 N], plateau)
-    rover.turn_left
+    rover.execute_instructions('L')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '3 4 W'
     expect(actual).to eq(expected)
@@ -33,7 +33,7 @@ describe 'Rover :: Can change direction', :rover do
 
   it "Can turn right from 'E' to 'S'" do
     rover = Rover.new(%w[4 3 E], plateau)
-    rover.turn_right
+    rover.execute_instructions('R')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '4 3 S'
     expect(actual).to eq(expected)
@@ -41,8 +41,7 @@ describe 'Rover :: Can change direction', :rover do
 
   it "Can turn opposite direction from 'E' to 'W'" do
     rover = Rover.new(%w[4 3 E], plateau)
-    rover.turn_right
-    rover.turn_right
+    rover.execute_instructions('RR')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '4 3 W'
     expect(actual).to eq(expected)
@@ -54,7 +53,7 @@ describe 'Rover :: Can Move', :rover do
 
   it "Can move north from '3 5 N' to '3 6 N'" do
     rover = Rover.new(%w[3 5 N], plateau)
-    rover.move
+    rover.execute_instructions('M')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '3 6 N'
     expect(actual).to eq(expected)
@@ -62,7 +61,7 @@ describe 'Rover :: Can Move', :rover do
 
   it "Can move south from '2 4 S' to '2 3 S'" do
     rover = Rover.new(%w[2 4 S], plateau)
-    rover.move
+    rover.execute_instructions('M')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '2 3 S'
     expect(actual).to eq(expected)
@@ -70,7 +69,7 @@ describe 'Rover :: Can Move', :rover do
 
   it "Can move west from '2 4 W' to '1 4 W'" do
     rover = Rover.new(%w[2 4 W], plateau)
-    rover.move
+    rover.execute_instructions('M')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '1 4 W'
     expect(actual).to eq(expected)
@@ -78,7 +77,7 @@ describe 'Rover :: Can Move', :rover do
 
   it "Can move east from '5 3 E' to '6 3 E'" do
     rover = Rover.new(%w[5 3 E], plateau)
-    rover.move
+    rover.execute_instructions('M')
     actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
     expected = '6 3 E'
     expect(actual).to eq(expected)
@@ -90,25 +89,45 @@ describe "Rover :: Cannot move outside the plateau with dimensions '6 6'" do
 
   it "Rover at '6 3 E' cannot cross east limit" do
     rover = Rover.new(%w[6 3 E], plateau)
-    rover.move
+    rover.execute_instructions('M')
     expect(rover.east_move_allowed?).to be(false)
   end
 
   it "Rover at '0 3 W' cannot cross west limit" do
     rover = Rover.new(%w[0 3 W], plateau)
-    rover.move
+    rover.execute_instructions('M')
     expect(rover.west_move_allowed?).to be(false)
   end
 
   it "Rover at '5 6 N' cannot cross north limit" do
     rover = Rover.new(%w[5 6 N], plateau)
-    rover.move
+    rover.execute_instructions('M')
     expect(rover.north_move_allowed?).to be(false)
   end
 
   it "Rover at '6 0 S' cannot cross south limit" do
     rover = Rover.new(%w[6 0 S], plateau)
-    rover.move
+    rover.execute_instructions('M')
     expect(rover.south_move_allowed?).to be(false)
+  end
+end
+
+describe 'Rover :: Can follow a series of instructions' do
+  plateau = Plateau.new(%w[6 6])
+
+  it "Rover at '2 3 E' reaches '1 4 N'" do
+    rover = Rover.new(%w[2 3 E], plateau)
+    rover.execute_instructions('LLMRM')
+    actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+    expected = '1 4 N'
+    expect(actual).to eq(expected)
+  end
+
+  it "Rover at '6 6 E' doesnt cross plateau but changes heading" do
+    rover = Rover.new(%w[6 6 E], plateau)
+    rover.execute_instructions('MMLMM')
+    actual = "#{rover.x_position} #{rover.y_position} #{rover.direction}"
+    expected = '6 6 N'
+    expect(actual).to eq(expected)
   end
 end

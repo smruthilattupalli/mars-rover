@@ -11,6 +11,16 @@ class Rover
     @plateau = plateau
   end
 
+  def execute_instructions(instructions)
+    instructions.each_char do |instruction|
+      case instruction
+      when 'L' then turn_left
+      when 'R' then turn_right
+      when 'M' then move
+      end
+    end
+  end
+
   def east_move_allowed?
     @direction == 'E' && @x_position < @plateau.east_limit
   end
@@ -26,6 +36,8 @@ class Rover
   def south_move_allowed?
     @direction == 'S' && @y_position > @plateau.south_limit
   end
+
+  private
 
   def turn_left
     case @direction
