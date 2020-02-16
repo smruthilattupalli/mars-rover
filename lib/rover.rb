@@ -11,6 +11,7 @@ class Rover
     @plateau = plateau
   end
 
+  # Rover executes series of instructions 'LLMRRMMM' sequenctially
   def execute_instructions(instructions)
     instructions.each_char do |instruction|
       case instruction
@@ -21,6 +22,7 @@ class Rover
     end
   end
 
+  # Instance methods to check if movement is possible in a given direction
   def east_move_allowed?
     @direction == 'E' && @x_position < @plateau.east_limit
   end
@@ -39,6 +41,7 @@ class Rover
 
   private
 
+  # Rover turns 90 degrees left from the given direction
   def turn_left
     case @direction
     when 'W' then @direction = 'S'
@@ -48,6 +51,7 @@ class Rover
     end
   end
 
+  # Rover turns 90 degrees right from the give direction
   def turn_right
     case @direction
     when 'S' then @direction = 'W'
@@ -57,6 +61,7 @@ class Rover
     end
   end
 
+  # Rover moves one step in the grid in the direction of its heading
   def move
     @x_position += 1 if east_move_allowed?
     @x_position -= 1 if west_move_allowed?

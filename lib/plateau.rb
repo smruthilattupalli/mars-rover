@@ -8,6 +8,7 @@ class Plateau
     x_limit = plateau_limits[0].to_i
     y_limit = plateau_limits[1].to_i
 
+    # The lower left coordinates of the plateau are always 0, 0
     @west_limit = 0
     @south_limit = 0
     @east_limit = x_limit
